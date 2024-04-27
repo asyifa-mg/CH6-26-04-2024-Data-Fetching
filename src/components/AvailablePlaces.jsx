@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import Places from "./Places.jsx";
+import Error from "./Error.jsx";
 
-const places = localStorage.getItem("places");
+//const places = localStorage.getItem("places");
 
 export default function AvailablePlaces({ onSelectPlace }) {
   const [isFetching, setIsFetching] = useState(false); //untuk bagian loading
@@ -39,12 +40,12 @@ export default function AvailablePlaces({ onSelectPlace }) {
 
   return (
     <Places
-      title="Available Places" //propterty
-      places={availablePlaces} //propterty
-      isLoading={isFetching} //propterty untuk loading
+      title="Available Places" //property
+      places={availablePlaces} //props
+      isLoading={isFetching} //props untuk loading
       loadingText="Data is fetching..." //propterty untuk loading data
       fallbackText="No places available." //propterty dan tidak menampilkan ini jika datanya tdak ada
-      onSelectPlace={onSelectPlace} //propt
+      onSelectPlace={onSelectPlace} //props
     />
   );
 }

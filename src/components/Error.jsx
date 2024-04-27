@@ -2,8 +2,13 @@ export default function Error({ title, message, onConfirm }) {
   return (
     <div className="error">
       <h2>{title}</h2>
-      <h2>{message}</h2>
-      {onConfirm && (   <div id="confirmation-actions"
+      <p>{message}</p>
+      {onConfirm && (
+        <div id="confirmation-actions">
+          <button onClick={onConfirm} className="button">
+            OKAY
+          </button>
+        </div>
       )}
     </div>
   );

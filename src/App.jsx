@@ -6,13 +6,13 @@ import DeleteConfirmation from "./components/DeleteConfirmation.jsx";
 import logoImg from "./assets/logo.png";
 import AvailablePlaces from "./components/AvailablePlaces.jsx";
 import { updateUserPlaces } from "./http.js";
+import Error from "./components/Error.jsx";
 
 function App() {
   const selectedPlace = useRef();
 
   const [userPlaces, setUserPlaces] = useState([]);
-
-  const [errorUpdatingUserPlaces, setErrorUpdatingUserPlaces] = useState([]);
+  const [errorUpdatingUserPlaces, setErrorUpdatingUserPlaces] = useState();
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -38,8 +38,9 @@ function App() {
 
     try {
       await updateUserPlaces([...userPlaces, selectedPlace]);
-    } catch (error) {
+    } catch (err) {
       //next development-error handler BE dan FE
+      setUserPlaces(userPlaces);
       setErrorUpdatingUserPlaces({
         message: err.message || "ada error waktu update user places",
       });
@@ -54,12 +55,16 @@ function App() {
     setModalIsOpen(false);
   }, []);
 
+  function handleError() {
+    setErrorUpdatingUserPlaces(null);
+  }
+
   return (
     <>
       <Modal open={errorUpdatingUserPlaces} onClose={handleError}>
         {errorUpdatingUserPlaces && (
           <Error
-            title="Ada Error pas update user places"
+            title="Ada error pas update user places"
             message={errorUpdatingUserPlaces.message}
             onConfirm={handleError}
           />
